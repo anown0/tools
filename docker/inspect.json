@@ -1,0 +1,93 @@
+docker inspect custom1:layer1
+[
+    {
+        "Id": "sha256:c9aa12f4e00da93c817c2c9809eb61ede8303cb4efb91d64b063fb262e748d13",
+        "RepoTags": [
+            "custom1:layer1"
+        ],
+        "RepoDigests": [],
+        "Parent": "",
+        "Comment": "buildkit.dockerfile.v0",
+        "Created": "2024-03-08T16:06:18.066822457-08:00",
+        "Container": "",
+        "ContainerConfig": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": null,
+            "Cmd": null,
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": null
+        },
+        "DockerVersion": "",
+        "Author": "",
+        "Config": {
+            "Hostname": "",
+            "Domainname": "",
+            "User": "",
+            "AttachStdin": false,
+            "AttachStdout": false,
+            "AttachStderr": false,
+            "Tty": false,
+            "OpenStdin": false,
+            "StdinOnce": false,
+            "Env": [
+                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                "DEBIAN_FRONTEND=noninteractive",
+                "TERM=xterm",
+                "the_release=/etc/lsb-release"
+            ],
+            "Cmd": [
+                "/bin/bash"
+            ],
+            "Image": "",
+            "Volumes": null,
+            "WorkingDir": "/",
+            "Entrypoint": null,
+            "OnBuild": null,
+            "Labels": {
+                "description": "This is a custom Docker Image",
+                "maintainer": "mark@anown.net",
+                "org.opencontainers.image.ref.name": "ubuntu",
+                "org.opencontainers.image.version": "22.04",
+                "version": "0.1"
+            }
+        },
+        "Architecture": "amd64",
+        "Os": "linux",
+        "Size": 188319817,
+        "GraphDriver": {
+            "Data": {
+                "LowerDir": "/var/lib/docker/overlay2/j9h88osx32010jin8nuapvo4n/diff:/var/lib/docker/overlay2/nhe1wck5n80ddtqk2m52ifzy7/diff:/var/lib/docker/overlay2/l0k9bez0009n5q3knpdju0klo/diff:/var/lib/docker/overlay2/dhygse65hn7cpwsnep8kky61p/diff:/var/lib/docker/overlay2/bff3be54cc4b925f7e6a5dc8fe8daeea1595c3b26cc7f09d0c9d5277b7273de7/diff",
+                "MergedDir": "/var/lib/docker/overlay2/yf413mvlgmtpgy5gn90r8fxxj/merged",
+                "UpperDir": "/var/lib/docker/overlay2/yf413mvlgmtpgy5gn90r8fxxj/diff",
+                "WorkDir": "/var/lib/docker/overlay2/yf413mvlgmtpgy5gn90r8fxxj/work"
+            },
+            "Name": "overlay2"
+        },
+        "RootFS": {
+            "Type": "layers",
+            "Layers": [
+                "sha256:5498e8c22f6996f25ef193ee58617d5b37e2a96decf22e72de13c3b34e147591",
+                "sha256:d1bce08c2429c9ba6c36ebc1b8f428ef9e9339a4304925759eb048525b997972",
+                "sha256:bbb6e6dbbc4666a5400ddc5011c8e6105115a17bf65b199d58501e0a53fae53c",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                "sha256:5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+                "sha256:f5b52f5c6abbdb1fac7fa46d4119370b877153cd6bb28b5870f14dc3ffe39868"
+            ]
+        },
+        "Metadata": {
+            "LastTagTime": "2024-03-08T16:06:18.657261707-08:00"
+        }
+    }
+]

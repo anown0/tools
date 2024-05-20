@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Loads pyenv automatically (switch between python versions)
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+eval "$(pyenv virtualenv-init -)"
+
+if [ -f ${HOME}/.bashrc ]; then
+  source ${HOME}/.bashrc
+fi
